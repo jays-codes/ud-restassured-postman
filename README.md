@@ -1,2 +1,2 @@
 # ud-restassured-postman
-proj repo for RestAssured Postman Training
+Jays proj repo for RestAssured Postman Training (conducted by R.Shetty - udemy)
