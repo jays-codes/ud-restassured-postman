@@ -6,6 +6,8 @@ import io.restassured.path.json.JsonPath;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import org.testng.Assert;
+
 public class RestAPIAutomationPractice1 {
 
 	public static void main(String[] args) {
@@ -57,6 +59,7 @@ public class RestAPIAutomationPractice1 {
 				System.out.println("PUT Response: \n" + resp);
 				
 //get place
+		String expAddr = "70 summer walk, CA";
 		resp = given()
 				.log().all()
 				.queryParam("key", "qaclick123")
@@ -73,8 +76,11 @@ public class RestAPIAutomationPractice1 {
 				
 			jspath = new JsonPath(resp);
 			String addr = jspath.get("address");
+			
+			Assert.assertEquals(addr, expAddr);
 			System.out.println("GET Response address: \n" + addr);
 		
+			
 	}
 
 }
