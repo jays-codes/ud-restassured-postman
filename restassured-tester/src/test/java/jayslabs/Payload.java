@@ -21,4 +21,16 @@ public class Payload {
 				+ "}";
 		return body;
 	}
+	
+	public static String getBody_updatePlace(String placeId) {
+		String body = "{\r\n"
+				+ "    \"place_id\": \""
+				+ placeId
+				+ "\",\r\n"
+				+ "    \"address\": \"70 summer walk, USA\",\r\n"
+				+ "    \"key\": \"qaclick123\"\r\n"
+				+ "}";
+		System.out.println("PUT req body: " + body);
+		return body;
+	}
 }
