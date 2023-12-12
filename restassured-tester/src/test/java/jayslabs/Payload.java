@@ -60,4 +60,21 @@ public class Payload {
 				+ "}";
 		return body;
 	}
+
+	public static String getBody_addBook(String isbn, String aisle) {
+		String body = "{\r\n"
+				+ "\"name\":\"Learn Appium Automatiosdgfsbdgsdrfgn with Java in 1 day\",\r\n"
+				+ "\"isbn\":\"" + isbn + "\",\r\n"
+				+ "\"aisle\":\"" + aisle + "\",\r\n"
+				+ "\"author\":\"JayMenorca\"\r\n"
+				+ "}";
+		return body;
+	}
+	
+	public static String getBody_deleteBook(String id) {
+		String body = "{\r\n"
+				+ "\"ID\":\"" + id + "\"\r\n"
+				+ "}";
+		return body;
+	}
 }
