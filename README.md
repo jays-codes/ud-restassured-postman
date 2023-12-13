@@ -7,4 +7,4 @@ Pls. refer to project restassured-tester (java, mvn). covers ff. topics
   - extract, response, asString
   - io.restassured.path.json.JsonPath to traverse to and extract from json (resp) body
 - Integrated TestNG
-  
+  - using DataProvider 
