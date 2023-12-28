@@ -29,13 +29,13 @@ public class JiraAPITester {
 		given()
 			.log().all()
 			.header("Content-Type", "application/json")
-			.header("Cookie","JSESSIONID=C10F42164CD90D15D350C3F41014D64E; atlassian.xsrf.token=B4KE-3A5J-3BAX-8MNU_e64b697e951973f49668994d19d6feb298241a8b_lin")
+			.header("Cookie","JSESSIONID=C10F42164CD90D15D350C3F41014D64E;")
 			.pathParam("id", "10004").body("{\r\n"
 					+ "    \"update\": {\r\n"
 					+ "        \"comment\": [\r\n"
 					+ "            {\r\n"
 					+ "                \"add\": {\r\n"
-					+ "                    \"body\": \"hoi hoi hoi!!!\"\r\n"
+					+ "                    \"body\": \"hoi hoi hoi. updated cookie!!!\"\r\n"
 					+ "                }\r\n"
 					+ "            }\r\n"
 					+ "        ]\r\n"
