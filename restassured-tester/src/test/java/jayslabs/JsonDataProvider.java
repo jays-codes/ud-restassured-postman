@@ -13,13 +13,14 @@ import io.restassured.response.Response;
 public class JsonDataProvider {
 
 	@Test(dataProvider = "BooksData")
-	public void addBook(String isbn, String aisle) {
+	public void addBook(String isbn, String aisle) throws IOException {
 
 		RestAssured.baseURI = "http://216.10.245.166";
 		String resp = 
 			given().
 				header("Content-Type", "application/json").
-				body(Payload.getBody_addBook(isbn, aisle)).
+//				body(Payload.getBody_addBook(isbn, aisle)).
+				body(new String(Files.readAllBytes(Paths.get("")))).
 			when().
 				post("/Library/Addbook.php").
 			then().assertThat().statusCode(200).
@@ -27,9 +28,7 @@ public class JsonDataProvider {
 
 		JsonPath js = new JsonPath(resp);
 		String id = js.get("ID");
-
 		System.out.println(id);
-
 	}
 
 	@DataProvider(name="BooksData")
