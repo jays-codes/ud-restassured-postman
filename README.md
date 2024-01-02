@@ -8,5 +8,6 @@ Pls. refer to project restassured-tester (java, mvn). covers ff. topics
   - io.restassured.path.json.JsonPath to traverse to and extract from json (resp) body
   - using .pathParam() to pass in parameter values to REST API
   - using SessionFilter to pass session info to subsequent requests
+  - using .multiPart() to send attachments to a Jira issue 
 - Integrated TestNG
   - using DataProvider 
