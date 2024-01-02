@@ -100,19 +100,17 @@ public class JiraAPITester {
 
 		SessionFilter sessFilter = new SessionFilter();
 
-		String resp = 
-				given()
-					.header("Content-Type", "application/json")
-					.body("{\r\n"
-							+ "    \"username\": \"zaimenorca\",\r\n"
-							+ "    \"password\": \"Kamusta@123\"\r\n"
-							+ "}")
-					.log().all().filter(sessFilter)
-				.when()
-					.post("/rest/auth/1/session")
-				.then()
-					.log().all().assertThat().statusCode(200).extract().response()
-					.asString();
+		given()
+			.header("Content-Type", "application/json")
+			.body("{\r\n"
+					+ "    \"username\": \"zaimenorca\",\r\n"
+					+ "    \"password\": \"Kamusta@123\"\r\n"
+					+ "}")
+			.log().all().filter(sessFilter)
+		.when()
+			.post("/rest/auth/1/session")
+		.then()
+			.log().all().assertThat().statusCode(200);
 
 		//add attachment
 		given().header("Content-Type", "multipart/form-data")
@@ -120,10 +118,6 @@ public class JiraAPITester {
 			.filter(sessFilter)
 			.pathParam("id", "10004")
 			.multiPart("file",new File("jiratest.txt"))
-//			.body("{\r\n"
-//					+ "    \"username\": \"zaimenorca\",\r\n"
-//					+ "    \"password\": \"Kamusta@123\"\r\n"
-//					+ "}")
 			.log().all()
 		.when()
 			.post("/rest/api/2/issue/{id}/attachments")
@@ -132,5 +126,48 @@ public class JiraAPITester {
 			.asString();
 	}
 	
+	@Test
+	public void getIssue() {
+		RestAssured.baseURI = "http://localhost:8090";
+
+		SessionFilter sessFilter = new SessionFilter();
+
+		given()
+			.header("Content-Type", "application/json")
+			.body("{\r\n"
+				+ "    \"username\": \"zaimenorca\",\r\n"
+				+ "    \"password\": \"Kamusta@123\"\r\n"
+				+ "}")
+			.log().all().filter(sessFilter)
+		.when()
+			.post("/rest/auth/1/session")
+		.then()
+			.log().all().assertThat().statusCode(200);
+
+		//get issue
+		String resp = given().header("Content-Type", "application/json")
+			.filter(sessFilter)
+			.pathParam("id", "10004")
+			.queryParam("fields", "comment")
+			.log().all()
+		.when()
+			.get("/rest/api/2/issue/{id}")
+		.then()
+			.log().all().assertThat().statusCode(200).extract().response()
+			.asString();
+	
+		JsonPath jspath = new JsonPath(resp);
+
+		int count = jspath.getInt("fields.comment.comments.size()");
+		System.out.println("comment count:" + count);
+		
+		//print out comments
+		for (int i=0;i<count;i++) {
+			System.out.print(
+					jspath.getString("fields.comment.comments["+i+"].body")
+					+ "\n");
+		}
+		
+	}
 	
 }
