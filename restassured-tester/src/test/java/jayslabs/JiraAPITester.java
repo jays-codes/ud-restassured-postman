@@ -50,6 +50,52 @@ public class JiraAPITester {
 		SessionFilter sessFilter = new SessionFilter();
 
 		
+		//String resp = 
+				given()
+					.header("Content-Type", "application/json")
+					.body("{\r\n"
+							+ "    \"username\": \"zaimenorca\",\r\n"
+							+ "    \"password\": \"Kamusta@123\"\r\n"
+							+ "}")
+					.log().all().filter(sessFilter)
+				.when()
+					.post("/rest/auth/1/session")
+				.then()
+					.log().all().assertThat().statusCode(200);
+//					.extract().response()
+//					.asString();
+		
+		//10004 is issue id
+//		resp = 
+		given()
+			.log().all()
+			.header("Content-Type", "application/json")
+			//.header("Cookie","JSESSIONID=8D692F02B042B27B6980B8D3C0BB3093;")
+			.pathParam("id", "10004").body("{\r\n"
+					+ "    \"update\": {\r\n"
+					+ "        \"comment\": [\r\n"
+					+ "            {\r\n"
+					+ "                \"add\": {\r\n"
+					+ "                    \"body\": \"hoi hoi hoi. #3 updated cookie 2-jan-2024 !!!\"\r\n"
+					+ "                }\r\n"
+					+ "            }\r\n"
+					+ "        ]\r\n"
+					+ "    }\r\n"
+					+ "}")
+		.filter(sessFilter)	
+		.when()
+			.put("/rest/api/2/issue/{id}")
+		.then()
+			.log().all().assertThat().statusCode(204);
+//			.extract().response()
+//			.asString();
+	}
+	
+	public void addAttachment() {
+		RestAssured.baseURI = "http://localhost:8090";
+
+		SessionFilter sessFilter = new SessionFilter();
+
 		String resp = 
 				given()
 					.header("Content-Type", "application/json")
@@ -63,31 +109,5 @@ public class JiraAPITester {
 				.then()
 					.log().all().assertThat().statusCode(200).extract().response()
 					.asString();
-		
-		//10004 is issue id
-		resp = 
-		given()
-			.log().all()
-			.header("Content-Type", "application/json")
-			//.header("Cookie","JSESSIONID=8D692F02B042B27B6980B8D3C0BB3093;")
-			.pathParam("id", "10004").body("{\r\n"
-					+ "    \"update\": {\r\n"
-					+ "        \"comment\": [\r\n"
-					+ "            {\r\n"
-					+ "                \"add\": {\r\n"
-					+ "                    \"body\": \"hoi hoi hoi. #2 updated cookie 2-jan-2024 !!!\"\r\n"
-					+ "                }\r\n"
-					+ "            }\r\n"
-					+ "        ]\r\n"
-					+ "    }\r\n"
-					+ "}")
-		.filter(sessFilter)	
-		.when()
-			.put("/rest/api/2/issue/{id}")
-		.then()
-			.log().all().assertThat().statusCode(204).extract().response()
-			.asString();
 	}
-	
-	
 }
