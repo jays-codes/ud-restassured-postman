@@ -6,6 +6,9 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 
 import static io.restassured.RestAssured.*;
+
+import java.io.File;
+
 import io.restassured.filter.session.SessionFilter;
 
 
@@ -91,6 +94,7 @@ public class JiraAPITester {
 //			.asString();
 	}
 	
+	@Test
 	public void addAttachment() {
 		RestAssured.baseURI = "http://localhost:8090";
 
@@ -109,5 +113,24 @@ public class JiraAPITester {
 				.then()
 					.log().all().assertThat().statusCode(200).extract().response()
 					.asString();
+
+		//add attachment
+		given().header("Content-Type", "multipart/form-data")
+			.header("X-Atlassian-Token", "no-check")
+			.filter(sessFilter)
+			.pathParam("id", "10004")
+			.multiPart("file",new File("jiratest.txt"))
+//			.body("{\r\n"
+//					+ "    \"username\": \"zaimenorca\",\r\n"
+//					+ "    \"password\": \"Kamusta@123\"\r\n"
+//					+ "}")
+			.log().all()
+		.when()
+			.post("/rest/api/2/issue/{id}/attachments")
+		.then()
+			.log().all().assertThat().statusCode(200).extract().response()
+			.asString();
 	}
+	
+	
 }
