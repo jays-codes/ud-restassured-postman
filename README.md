@@ -16,5 +16,5 @@ Pls. refer to project restassured-tester (java, mvn). covers ff. topics
   - getting token from Auth server via client credentials; typical contract
 - JSON serialization / deserialization
   - creating POJO for complex JSON
-  - jacnkson databind
+  - jackson databind
   - using .body(pojo instance) to serialize; deserialize using .as() to generate POJO instance
