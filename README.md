@@ -14,3 +14,7 @@ Pls. refer to project restassured-tester (java, mvn). covers ff. topics
   - using DataProvider
 - OAuth 2.0
   - getting token from Auth server via client credentials; typical contract
+- JSON serialization / deserialization
+  - creating POJO for complex JSON
+  - jacnkson databind
+  - using .body(pojo instance) to serialize; deserialize using .as() to generate POJO instance
