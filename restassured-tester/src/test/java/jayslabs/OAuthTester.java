@@ -4,7 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import jayslabs.pojo.Course;
+import jayslabs.pojo.GetCourse;
+
 import static io.restassured.RestAssured.*;
+
+import java.util.List;
 
 
 public class OAuthTester {
@@ -50,27 +55,21 @@ public class OAuthTester {
 		JsonPath jspath = new JsonPath(resp);
 		String token = jspath.getString("access_token");
 
-		resp =
+		GetCourse rsobj =
 		given()
 			.queryParam("access_token", token)
 		.when()
 			.get("https://rahulshettyacademy.com/oauthapi/getCourseDetails")
 		.then()
 			.log().all()
-			.extract().response().asString();
+			.extract().response()
+			//deserialize response
+			.as(GetCourse.class);
 		
-		System.out.println("RESPONSE: " + resp);
+		System.out.println("linkedin: " + rsobj.getLinkedIn());
 		 
-//		jspath = new JsonPath(resp);
-//		int crgrpcount = jspath.getInt("courses.size()");
-//		
-//		for (int i=0;i<crgrpcount;i++) {
-//			int crcount = jspath.getInt("courses[" + i + "].size()");
-//			for (int j=0;j<crcount;j++) {
-//				System.out.println(
-//					jspath.getString("courses[" + i + "].courseTitle[" + j + "]")
-//				);
-//			}
-//		}
+		List<Course> crs = rsobj.getCourses().getWebAutomation();
+		crs.forEach(c -> System.out.println(c.getCourseTitle()));
+		
 	}
 }
