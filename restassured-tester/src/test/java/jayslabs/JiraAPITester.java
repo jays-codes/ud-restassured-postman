@@ -23,7 +23,6 @@ public class JiraAPITester {
 	
 	@Test
 	public void login() {
-		SessionFilter sfilter = new SessionFilter();
 		
 		RestAssured.baseURI = "http://localhost:8090";
 		
@@ -35,7 +34,6 @@ public class JiraAPITester {
 					+ "    \"password\": \"Kamusta@123\"\r\n"
 					+ "}")
 			.log().all()
-			.filter(sfilter)
 		.when()
 			.post("/rest/auth/1/session")
 		.then()
