@@ -38,7 +38,7 @@ public class CommerceSiteTester {
 		login.setUserPassword("Hello123@");
 		
 		RequestSpecification rqspec2 = 
-				given().log().all()
+				given().relaxedHTTPSValidation().log().all()
 				.spec(rqspec)
 				.body(login);
 		
