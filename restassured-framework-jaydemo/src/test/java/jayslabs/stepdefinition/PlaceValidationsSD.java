@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class PlaceValidationsSD extends FrameworkUtil{
 	
 	
 	@Given("Add Place Payload")
-	public void add_place_payload() throws FileNotFoundException {
+	public void add_place_payload() throws IOException {
 		System.out.println("running test...");
 		rqspec = getRequestSpecification(); 
 

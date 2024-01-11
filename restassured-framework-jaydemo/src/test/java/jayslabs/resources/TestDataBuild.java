@@ -15,7 +15,7 @@ public class TestDataBuild {
 		loc.setLng(33.427362);
 		place.setLocation(loc);
 		place.setAccuracy(50);
-		place.setName("Backline House");
+		place.setName("Frontline House");
 		place.setPhone_number("(+91) 123 456 7891");
 		place.setAddress("29 front layout, blah 11");
 		List<String> types = new ArrayList<String>();
