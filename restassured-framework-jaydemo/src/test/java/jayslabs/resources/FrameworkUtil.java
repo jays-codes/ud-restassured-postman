@@ -17,7 +17,7 @@ import io.restassured.specification.ResponseSpecification;
 public class FrameworkUtil {
 
 	public RequestSpecification getRequestSpecification() throws IOException {
-		PrintStream log = new PrintStream(new FileOutputStream("app.log"));
+		PrintStream log = new PrintStream(new FileOutputStream("app.log", true));
 		
 		RequestSpecification rqspec = new RequestSpecBuilder()
 				.setBaseUri(getGlobalValue("baseURL"))
