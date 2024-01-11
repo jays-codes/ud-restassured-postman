@@ -22,5 +22,7 @@ Pls. refer to project restassured-tester (java, mvn). covers ff. topics
   - using .body(pojo instance) to serialize; deserialize using .as() to generate POJO instance
 
 Added restassured-framework-jaydemo project
-  - ver.1 : RestAssured, Cucumber, JUnit 4
+  - v1.0 : RestAssured, Cucumber, JUnit 4
     - AddPlace API implemented
+    - added resources package, TestDataBuild (return pojos), FrameworkUtil (calling spec builders) extended by StepDefinition
+    - added logging (in Util) via addFilter(), Request/Response LoggingFilter, to a log file
