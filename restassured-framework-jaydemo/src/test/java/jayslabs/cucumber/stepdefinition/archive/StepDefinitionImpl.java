@@ -1,4 +1,4 @@
-package jayslabs.cucumber.stepdefinition;
+package jayslabs.cucumber.stepdefinition.archive;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

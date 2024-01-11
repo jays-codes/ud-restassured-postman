@@ -1,4 +1,5 @@
-package jayslabs.cucumber;
+
+package jayslabs.feature;
 
 import org.junit.runner.RunWith;
 
@@ -7,9 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-features="src/test/java/jayslabs/cucumber",
-glue="jayslabs.cucumber.stepdefinition"
+features="src/test/java/jayslabs/feature",
+glue="jayslabs.stepdefinition"
 		)
-public class TestRunner1 {
-	
+public class PlaceAPIRunner {
 }
