@@ -14,10 +14,4 @@ public enum APIResources {
 	public String getResource() {
 		return this.resource;
 	}
-
-//	public String getResource(String src) {
-//		APIResources apir = APIResources.valueOf(src);
-//		return apir.getResource();
-//	}
-
 }

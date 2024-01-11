@@ -48,6 +48,37 @@ public class PlaceValidationsSD extends FrameworkUtil{
 					.body("scope",equalTo("APP"))
 					.extract().response();	
 	}
+	
+	@When("User calls {string} with {string} http request")
+	public void user_calls_with_http_request(String apistr, String method) {
+//		rsspec = getResponseSpecification();
+//
+//		resp = rqspec.when()
+//				.post(APIResources.valueOf(apistr).getResource())
+//				.then()
+//					.log().all()
+//					.spec(rsspec)
+//					.body("scope",equalTo("APP"))
+//					.extract().response();	
+
+		rsspec = getResponseSpecification();
+
+		rqspec = rqspec.when();
+
+		if (method.equalsIgnoreCase("POST")) {
+			resp = rqspec.post(APIResources.valueOf(apistr).getResource());
+		} else if (method.equalsIgnoreCase("GET")) {
+			resp = rqspec.get(APIResources.valueOf(apistr).getResource());
+		} 
+		
+		resp = resp
+				.then()
+					.log().all()
+					.spec(rsspec)
+					.body("scope",equalTo("APP"))
+					.extract().response();	
+		
+	}
 
 	@Then("the API call is a successful with status code {int}")
 	public void the_api_call_is_a_successful_with_status_code(Integer status) {
