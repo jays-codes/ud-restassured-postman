@@ -27,3 +27,4 @@ Added restassured-framework-jaydemo project
     - added resources package, TestDataBuild (return pojos), FrameworkUtil (calling spec builders) extended by StepDefinition
     - added logging (in Util) via addFilter(), Request/Response LoggingFilter, to a log file
     - added global.properties file, added Util method to get property value
+    - added Data Driven execution via 'Examples' in feature file, refactored TestDataBuild to parameterize payload generation
