@@ -26,3 +26,4 @@ Added restassured-framework-jaydemo project
     - AddPlace API implemented
     - added resources package, TestDataBuild (return pojos), FrameworkUtil (calling spec builders) extended by StepDefinition
     - added logging (in Util) via addFilter(), Request/Response LoggingFilter, to a log file
+    - added global.properties file, added Util method to get property value
