@@ -7,7 +7,7 @@ import jayslabs.pojo.AddPlace;
 import jayslabs.pojo.Location;
 
 public class TestDataBuild {
-	public AddPlace getAddPlacePayload() {
+	public AddPlace getAddPlacePayload(String name, String lang, String addr) {
 		AddPlace place = new AddPlace();
 
 		Location loc = new Location();
@@ -15,15 +15,15 @@ public class TestDataBuild {
 		loc.setLng(33.427362);
 		place.setLocation(loc);
 		place.setAccuracy(50);
-		place.setName("Frontline House");
+		place.setName(name);
 		place.setPhone_number("(+91) 123 456 7891");
-		place.setAddress("29 front layout, blah 11");
+		place.setAddress(addr);
 		List<String> types = new ArrayList<String>();
 		types.add("school");
 		types.add("kitchen");
 		place.setTypes(types);
 		place.setWebsite("http://google.com");
-		place.setLanguage("French-IN");
+		place.setLanguage(lang);
 		
 		return place;
 	}

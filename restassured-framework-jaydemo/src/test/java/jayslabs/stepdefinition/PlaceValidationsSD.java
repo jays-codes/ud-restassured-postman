@@ -30,12 +30,12 @@ public class PlaceValidationsSD extends FrameworkUtil{
 	TestDataBuild td = new TestDataBuild();
 	
 	
-	@Given("Add Place Payload")
-	public void add_place_payload() throws IOException {
+	@Given("Add Place Payload with {string} {string} {string}")
+	public void add_place_payload_with(String name, String lang, String addr) throws IOException {
 		System.out.println("running test...");
 		rqspec = getRequestSpecification(); 
 
-		AddPlace place = td.getAddPlacePayload();
+		AddPlace place = td.getAddPlacePayload(name, lang, addr);
 		rqspec = given().log().all().spec(rqspec).body(place);
 	}
 
