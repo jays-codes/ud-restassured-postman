@@ -14,6 +14,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import jayslabs.pojo.AddPlace;
+import jayslabs.resources.APIResources;
 import jayslabs.resources.FrameworkUtil;
 import jayslabs.resources.TestDataBuild;
 
@@ -34,20 +35,13 @@ public class PlaceValidationsSD extends FrameworkUtil{
 		rqspec = given().log().all().spec(rqspec).body(place);
 	}
 
-	@When("User calls {string} API with POST http request")
-	public void user_calls_api_with_post_http_request(String apipath) {
+	@When("User calls {string} with POST http request")
+	public void user_calls_api_with_post_http_request(String apistr) {
 		
 		rsspec = getResponseSpecification();
 
-		String postpath = "";
-		
-		switch(apipath) {
-			case "AddPlace" : postpath = "/maps/api/place/add/json"; break;
-			default: postpath=""; break;
-		}
-		
 		resp = rqspec.when()
-				.post(postpath)
+				.post(APIResources.valueOf(apistr).getResource())
 				.then()
 					.log().all()
 					.spec(rsspec)
