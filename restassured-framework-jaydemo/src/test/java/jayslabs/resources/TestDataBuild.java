@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jayslabs.pojo.AddPlace;
+import jayslabs.pojo.DeletePlace;
 import jayslabs.pojo.Location;
 
 public class TestDataBuild {
@@ -26,5 +27,11 @@ public class TestDataBuild {
 		place.setLanguage(lang);
 		
 		return place;
+	}
+	
+	public DeletePlace getDeletePlacePayload(String plid) {
+		DeletePlace dp = new DeletePlace();
+		dp.setPlace_id(plid);
+		return dp;
 	}
 }

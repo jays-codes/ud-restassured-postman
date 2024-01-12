@@ -5,15 +5,19 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import jayslabs.pojo.AddPlace;
+import jayslabs.pojo.AddPlaceRs;
+import jayslabs.pojo.DeletePlace;
+import jayslabs.pojo.GetPlaceRs;
 import jayslabs.resources.APIResources;
 import jayslabs.resources.FrameworkUtil;
 import jayslabs.resources.TestDataBuild;
@@ -24,60 +28,63 @@ public class PlaceValidationsSD extends FrameworkUtil{
 	ResponseSpecification rsspec = null;
 	Response resp = null;
 	TestDataBuild td = new TestDataBuild();
-	
+	AddPlaceRs rsobj;
+	GetPlaceRs getAPIrsobj = new GetPlaceRs();
 	
 	@Given("Add Place Payload with {string} {string} {string}")
 	public void add_place_payload_with(String name, String lang, String addr) throws IOException {
-		System.out.println("running test...");
 		rqspec = getRequestSpecification(); 
 
 		AddPlace place = td.getAddPlacePayload(name, lang, addr);
 		rqspec = given().log().all().spec(rqspec).body(place);
 	}
 
-	@When("User calls {string} with POST http request")
-	public void user_calls_api_with_post_http_request(String apistr) {
-		
-		rsspec = getResponseSpecification();
-
-		resp = rqspec.when()
-				.post(APIResources.valueOf(apistr).getResource())
-				.then()
-					.log().all()
-					.spec(rsspec)
-					.body("scope",equalTo("APP"))
-					.extract().response();	
-	}
-	
 	@When("User calls {string} with {string} http request")
-	public void user_calls_with_http_request(String apistr, String method) {
-//		rsspec = getResponseSpecification();
-//
-//		resp = rqspec.when()
-//				.post(APIResources.valueOf(apistr).getResource())
-//				.then()
-//					.log().all()
-//					.spec(rsspec)
-//					.body("scope",equalTo("APP"))
-//					.extract().response();	
+	public void user_calls_with_http_request(String apistr, String method) throws IOException {
 
 		rsspec = getResponseSpecification();
-
 		rqspec = rqspec.when();
 
 		if (method.equalsIgnoreCase("POST")) {
-			resp = rqspec.post(APIResources.valueOf(apistr).getResource());
+			resp = rqspec
+					.post(APIResources.valueOf(apistr).getResource())
+					.then()
+						.log().all()
+						.spec(rsspec)
+						.body("scope",equalTo("APP"))
+						.extract().response();	
+			rsobj = resp.as(AddPlaceRs.class);
 		} else if (method.equalsIgnoreCase("GET")) {
-			resp = rqspec.get(APIResources.valueOf(apistr).getResource());
-		} 
-		
-		resp = resp
-				.then()
-					.log().all()
-					.spec(rsspec)
-					.body("scope",equalTo("APP"))
-					.extract().response();	
-		
+			rqspec = given().log().all();
+			resp = rqspec
+			
+			.baseUri(getGlobalValue("baseURL"))
+			.queryParam("place_id", rsobj.getPlace_id())
+			.queryParam("key", "qaclick123")
+			.filter(RequestLoggingFilter.logRequestTo(getLog()))
+			.filter(ResponseLoggingFilter.logResponseTo(getLog()))
+			.get(APIResources.valueOf(apistr).getResource())
+			.then()
+				.log().all()
+				.spec(rsspec)
+				.extract().response();	
+			
+			JsonPath jspath = resp.jsonPath();
+			String name = jspath.get("name");
+			getAPIrsobj.setName(name);
+			
+		} else if (method.equalsIgnoreCase("DELETE")) {
+			DeletePlace dp = td.getDeletePlacePayload(rsobj.getPlace_id());
+			rqspec = given().log().all().spec(rqspec).body(dp);
+
+			resp = rqspec
+			.post(APIResources.valueOf(apistr).getResource())
+			.then()
+				.log().all()
+				.extract().response();	
+		} else {
+			fail("invalid method call or API not found...");
+		}
 	}
 
 	@Then("the API call is a successful with status code {int}")
@@ -85,6 +92,13 @@ public class PlaceValidationsSD extends FrameworkUtil{
 		assertEquals(resp.getStatusCode(),status.intValue());
 	}
 
+	@Then("verify place_id created maps to {string} using getPlaceAPI")
+	public void verify_place_id_created_maps_to_using_getPlaceAPI(String expname) throws IOException{
+
+		user_calls_with_http_request("getPlaceAPI","GET");
+		assertEquals(getAPIrsobj.getName(),expname);
+	}
+	
 	@Then("{string} in response body is {string}")
 	public void in_response_body_is(String key, String expectedVal) {
 		String respstr = resp.asString();

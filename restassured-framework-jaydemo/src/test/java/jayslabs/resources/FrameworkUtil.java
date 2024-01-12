@@ -16,8 +16,14 @@ import io.restassured.specification.ResponseSpecification;
 
 public class FrameworkUtil {
 
+	public PrintStream getLog() {
+		return log;
+	}
+
+	PrintStream log; 
+	
 	public RequestSpecification getRequestSpecification() throws IOException {
-		PrintStream log = new PrintStream(new FileOutputStream("app.log", true));
+		log = new PrintStream(new FileOutputStream("app.log", true));
 		
 		RequestSpecification rqspec = new RequestSpecBuilder()
 				.setBaseUri(getGlobalValue("baseURL"))
@@ -26,6 +32,7 @@ public class FrameworkUtil {
 				.addFilter(ResponseLoggingFilter.logResponseTo(log))
 				.setContentType(ContentType.JSON)
 				.build();
+	
 		return rqspec;
 	}
 	
