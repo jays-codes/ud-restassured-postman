@@ -69,8 +69,7 @@ public class PlaceValidationsSD extends FrameworkUtil{
 				.spec(rsspec)
 				.extract().response();	
 			
-			JsonPath jspath = resp.jsonPath();
-			String name = jspath.get("name");
+			String name = getValFromJsonPath(resp,"name");
 			getAPIrsobj.setName(name);
 			
 		} else if (method.equalsIgnoreCase("DELETE")) {
@@ -101,10 +100,9 @@ public class PlaceValidationsSD extends FrameworkUtil{
 	
 	@Then("{string} in response body is {string}")
 	public void in_response_body_is(String key, String expectedVal) {
-		String respstr = resp.asString();
-		JsonPath jspath = new JsonPath(respstr);
 		
-		assertEquals(jspath.get(key), expectedVal);
+		String actual = getValFromJsonPath(resp,key);
+		assertEquals(actual, expectedVal);
 		
 	}
 }

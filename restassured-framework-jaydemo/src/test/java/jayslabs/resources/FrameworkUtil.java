@@ -11,6 +11,8 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
@@ -49,5 +51,10 @@ public class FrameworkUtil {
 		FileInputStream fis = new FileInputStream("C:\\jay\\training\\repo\\git\\ud-restassured-postman\\restassured-framework-jaydemo\\src\\test\\java\\jayslabs\\resources\\global.properties");
 		prop.load(fis);
 		return prop.getProperty(key);
+	}
+	
+	public String getValFromJsonPath(Response resp, String key) {
+		JsonPath jspath = resp.jsonPath();
+		return jspath.get(key).toString();
 	}
 }
