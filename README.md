@@ -30,3 +30,4 @@ Added restassured-framework-jaydemo project
     - added Data Driven execution via 'Examples' in feature file, refactored TestDataBuild to parameterize payload generation
     - used enum to parameterize resource param passed to POST API calls
     - parameterize http method call in feature file to have one SD method implementation handle multiple http methods
+    - Added for get and delete API call in SD method
