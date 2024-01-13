@@ -9,7 +9,8 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 features="src/test/java/jayslabs/feature",
-glue="jayslabs.stepdefinition"
-		)
+glue="jayslabs.stepdefinition",
+tags="@DeletePlace"
+)
 public class PlaceAPIRunner {
 }

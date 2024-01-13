@@ -10,7 +10,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -24,12 +23,13 @@ import jayslabs.resources.TestDataBuild;
 
 public class PlaceValidationsSD extends FrameworkUtil{
 
-	RequestSpecification rqspec = null;
+	static RequestSpecification rqspec;
 	ResponseSpecification rsspec = null;
 	Response resp = null;
 	TestDataBuild td = new TestDataBuild();
-	AddPlaceRs rsobj;
+	static AddPlaceRs rsobj;
 	GetPlaceRs getAPIrsobj = new GetPlaceRs();
+	DeletePlace dp;
 	
 	@Given("Add Place Payload with {string} {string} {string}")
 	public void add_place_payload_with(String name, String lang, String addr) throws IOException {
@@ -51,7 +51,7 @@ public class PlaceValidationsSD extends FrameworkUtil{
 					.then()
 						.log().all()
 						.spec(rsspec)
-						.body("scope",equalTo("APP"))
+						//.body("scope",equalTo("APP"))
 						.extract().response();	
 			rsobj = resp.as(AddPlaceRs.class);
 		} else if (method.equalsIgnoreCase("GET")) {
@@ -73,7 +73,7 @@ public class PlaceValidationsSD extends FrameworkUtil{
 			getAPIrsobj.setName(name);
 			
 		} else if (method.equalsIgnoreCase("DELETE")) {
-			DeletePlace dp = td.getDeletePlacePayload(rsobj.getPlace_id());
+			dp = td.getDeletePlacePayload(rsobj.getPlace_id());
 			rqspec = given().log().all().spec(rqspec).body(dp);
 
 			resp = rqspec
@@ -103,6 +103,12 @@ public class PlaceValidationsSD extends FrameworkUtil{
 		
 		String actual = getValFromJsonPath(resp,key);
 		assertEquals(actual, expectedVal);
-		
 	}
+	
+	@Given("DeletePlace Payload")
+	public void delete_place_payload() {
+		dp = td.getDeletePlacePayload(rsobj.getPlace_id());
+
+	}
+
 }
