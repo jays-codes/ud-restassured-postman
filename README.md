@@ -32,3 +32,5 @@ Added restassured-framework-jaydemo project
     - parameterize http method call in feature file to have one SD method implementation handle multiple http methods
     - Added for get and delete API call in SD method
     - Added Util method to parse value from json given Response obj and key
+    - Added tagging control to Runner class
+    - Added Hooks class - io.cucumber.java.Before - to do prerequisite code prior to executing test step (DeletePlace)
