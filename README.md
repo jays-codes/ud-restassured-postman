@@ -34,3 +34,5 @@ Added restassured-framework-jaydemo project
     - Added Util method to parse value from json given Response obj and key
     - Added tagging control to Runner class
     - Added Hooks class - io.cucumber.java.Before - to do prerequisite code prior to executing test step (DeletePlace)
+    - modified pom to add plugin maven-cucumber-reporting 5.7.8 for pretty formatted reports
+    - Executed TestRunner via mvn cmdline
