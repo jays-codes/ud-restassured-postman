@@ -36,5 +36,5 @@ Added restassured-framework-jaydemo project
     - Added Hooks class - io.cucumber.java.Before - to do prerequisite code prior to executing test step (DeletePlace)
     - modified pom to add plugin maven-cucumber-reporting 5.7.8 for pretty formatted reports
     - Executed TestRunner via mvn cmdline
-    - Added jenkins job to run framework
+    - Added jenkins job to run framework, added parameterization of tags
     
