@@ -11,9 +11,9 @@ public class Hooks {
 	public void beforeScenario() throws IOException{
 
 		PlaceValidationsSD sd = new PlaceValidationsSD();
-		if (sd.rsobj==null) {
+		//if (sd.rsobj==null) {
 			sd.add_place_payload_with("Jay Werks", "Pinoy", "SSM");
 			sd.user_calls_with_http_request("addPlaceAPI", "post");			
-		}
+		//}
 	}
 }

@@ -51,7 +51,7 @@ public class PlaceValidationsSD extends FrameworkUtil{
 					.then()
 						.log().all()
 						.spec(rsspec)
-						//.body("scope",equalTo("APP"))
+						.body("scope",equalTo("APP"))
 						.extract().response();	
 			rsobj = resp.as(AddPlaceRs.class);
 		} else if (method.equalsIgnoreCase("GET")) {

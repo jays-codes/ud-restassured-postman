@@ -10,8 +10,8 @@ Feature: Validating Place APIs
     And "status" in response body is "OK"
     And "scope" in response body is "APP"
     And verify place_id created maps to "<name>" using getPlaceAPI
-   # And User calls "deletePlaceAPI" with "delete" http request
-   # And "status" in response body is "OK"
+    And User calls "deletePlaceAPI" with "delete" http request
+    And "status" in response body is "OK"
 		
 	 Examples: 
       | name  		| lang 		 | addr  		|
