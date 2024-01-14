@@ -2,7 +2,7 @@
 @tag
 Feature: Validating Place APIs
 
-  @AddPlace
+  @AddPlace @Regression
   Scenario Outline: Verify if Place is being successfully added using AddPlace API
     Given Add Place Payload with "<name>" "<lang>" "<addr>"
     When User calls "addPlaceAPI" with "post" http request
