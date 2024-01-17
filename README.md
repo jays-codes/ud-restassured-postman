@@ -20,7 +20,7 @@ Pls. refer to project restassured-tester (java, mvn). covers ff. topics
   - creating POJO for complex JSON
   - jackson databind
   - using .body(pojo instance) to serialize; deserialize using .as() to generate POJO instance
-
+- GraphQL - Added test to send POST request to graphQL API (mutation)
 Added restassured-framework-jaydemo project
   - v1.0 : RestAssured, Cucumber, JUnit 4
     - AddPlace API implemented
